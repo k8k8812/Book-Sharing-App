@@ -6,7 +6,7 @@ const router = express.Router();
 const NotesDB = require('../models/notes'); 
 
 router.get('/', (req,res)=>{
-    Notes.find({}, (error, notes) => {
+    NotesDB.find({}, (error, notes) => {
         if(error){
          console.log("error !!!!!!! ", error);
         }

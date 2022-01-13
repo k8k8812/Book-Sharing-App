@@ -1,4 +1,3 @@
-const db_config = require('./db.config.js')
 const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema;

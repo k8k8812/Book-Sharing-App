@@ -2,12 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require('mongoose');
-const config = require('./backend/dbconfig');
 const path = require('path')
 
 
 const app = express();
-mongoose.connect(config.db_url, {
+mongoose.connect('mongodb://localhost:27017/notes-app', {
     useUnifiedTopology : true,
     useNewUrlParser: true
 });
@@ -49,7 +48,7 @@ app.use(function (req, res, next) {
 
 
 // set the routes here for the backend;
-const notes = require('./backend/backend-routes/notes');
+const notes = require('./backend-routes/notes');
 
 app.use('/notes', notes);
 
