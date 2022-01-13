@@ -1,268 +1,134 @@
 <template>
-<div>
-    <!-- <router-link to="/addnewbook">  Add One New Book  </router-link> -->
-    <!-- <button type="button" class="btn btn-outline-primary " > Add One New Book </button> -->
+  <div class="container">
+    <form @submit.prevent='handleSubmit'>
+      <div class="leftbox">
+        <label> Title: </label> 
+          <input type="text" v-model.trim="title" > 
+          <span class="errorMsg" v-if="sametitle == true"><p>Sorry, can't add the same title. </p></span>
     
-    <div class="container">
-    <form @submit.prevent="handleSubmit">
-      <!-- @click.prevent="handleSubmit" -->
+          <br>
 
-    <div class="leftbox">
+          <label> Author: </label>
+          <input type="text" v-model="author" >
 
-    <label> Title: </label> 
-    <input type="text" v-model.trim="title" > 
-    <span class="errorMsg" v-if="sametitle == true"><p>Sorry, can't add the same title. </p></span>
-    <span class="errorMsg" v-else-if="checkTitle" > Title Should be At least 2 characters !</span>
-    <span span v-else>  </span>
-    <br>
+         <br>
+          <label> Year of Publication:</label> {{ year }}
+          <input type="number" v-model ="year" required >
+           <!-- <span class="errorMsg" v-if="year == null">  </span>
+          <span class="errorMsg" v-else-if="checkYear"> Year should be Format: YYYY (e.g. earlier than 2023) </span>
+          <span class="errorMsg" v-else>  </span> -->
 
-    <label> Author: </label>
-    <input type="text" v-model="author" >
-    <span class="errorMsg" v-if="checkAuthor">Author Should be At least 2 characters !</span>
+         <fieldset> 
+          <legend> Genre: </legend> 
+          <label id="genre" >Fiction</label><input type="checkbox" value="fiction" v-model="genre" >| 
+          <label id="genre" >Non-fiction</label><input type="checkbox" value="non-fiction" v-model.lazy="genre"> | 
+          <label id="genre">Fantacy</label><input type="checkbox"  value="fantacy" v-model="genre"> |
+          <label id="genre">Mystery</label><input type="checkbox"  value="mystery" v-model="genre"> |
+          <label id="genre">Thriller</label><input type="checkbox"  value="thriller" v-model="genre"> |
+          <label id="genre" >Crime</label><input type="checkbox"  value="crime" v-model="genre"> |
+          <label id="genre">Documentary</label><input type="checkbox" value="documentary" v-model="genre"> <br>
+          <p>{{ genre }}</p>
+          </fieldset>  
+          
+          <!-- <br>
+          <label> Upload Your Book Picture: </label>
+          <input type="file" id="book-pic" name="book-pic" > -->
+          <div>
+            <label>Rate the book: </label>
+          <select class="rating" name="rating" v-model="rating" >
+            <option>  </option>
+            <option value=1 id="">1</option>
+            <option value=2 id="">2</option>
+            <option value=3 id="">3</option>
+            <option value=4 id="">4</option>
+            <option value=5 id="">5</option> 
+          </select>
+          </div>
+          <div>
+            <input type="checkbox" v-model="read" >
+              <label> Read </label>
+          </div>
 
-    <br>
-    <label> Year of Publication:</label> {{ year }}
-    <input type="number" v-model ="year" >
-    
-    <span class="errorMsg" v-if="year == null">  </span>
-    <span class="errorMsg" v-else-if="checkYear"> Year should be Format: YYYY (e.g. earlier than 2023) </span>
-    <span class="errorMsg" v-else>  </span> 
-    
-    <div>
-      <input type="checkbox" v-model="read" >
-        <label> Read </label>
-    </div>
-    
-    <br/>
-    <!-- disable the 'Add New Note' if nothing has typed in.  -->
-    <button @click="addNote(title,author,year)" :disabled="isDisable"> Add One Note </button> 
-    <button @click="allNotes" > Show All Notes </button>
-    <button type="reset" @click="clearInputs"> Clear </button>
-    
-    
-
-    <div class="sill" v-if="newNote.length != 0" >
-    <div v-for="item in displayNewNote.slice(0,3)" :key="item.id" >
-       <span > {{ item }} </span>
-    </div>
-       <span class="material-icons" v-if="flag==='YES'" > {{ read }}</span>
-       <!-- <span class="material-icons" v-else>outlined_flag</span> -->
-    </div>
-
-    <!-- <div class="search" >
-    <input type="searchtext" v-model="searchVal" >
-    <button @click="search(searchVal)" id="searchbutton"> Search </button>
-    <span v-if="showSearch == 'NO' " class="errorMsg">  Sorry, the title does not exist! </span>
-    </div> -->
-</div>
-     
-    
-    <div class="rightbox" v-if="isShow">
-    <div class="rightbox-content" >
-      <div v-if="showAll">
-         <!-- box1 is to show all the result  -->
-      <div class="box1" v-for="item in notes" :key="item.id" > 
-        <span @click="deleteNote(item)" class="sill" > Click to delete:<br/> <span v-for ="name,index in noteItem" :key="index" class="showItem">
-          <br/> {{ name }} {{item[index]}}; 
-         </span>  </span> 
-        <span class="material-icons" v-if="item[3]==='YES'" >flag</span>
-        </div>
+          <div class="form-group">
+            <label for=""> Descripton: </label>
+            <textarea class="form-control" v-model="descriptions" rows="3"></textarea>
+          </div>
+          <button @click="addNote(title, author, descriptions, picUrl,rating, year, read, genre)" > Add One Note </button>
+          {{ newNote }}
+          
       </div>
-      
-      
-      <!-- <div class="box2" v-if="showSearch=='YES'" > 
-        <span><button class="deleteSearch" type="button" @click="deleteNote(searchRes)" > Delete Entry: </button></span>
-        <span v-if="read"><button class="markedRead" type="button" @click="changeReadStatus"> Marked Not Read </button></span>
-        <span v-if="!read"><button class="markedRead" type="button" @click="changeReadStatus"> Marked Read </button></span>
-        <div v-for="(item, index) in searchRes.slice(0,searchRes.length-1)" :key="index" class="searchBox" > 
-          <span>  {{ noteItem[index] }} {{ item }}</span>
-        </div>
-        <span class="searchBox"> {{ noteItem[searchRes.length-1] }} </span>
-        {{ flag }}
-        
-      </div> -->
-      <!-- box 2 is to show all the notes; -->
+
+
+
+    </form>
   </div>
-    </div>
-      
-   
-  </form>
-  </div>
-</div>
 </template>
 
-
 <script>
+import axios from 'axios'
+
+
 export default {
   data(){
     return {
-    title: '',
-    author: '',
-    year: null,
-    read: false,   //check if the book is read; 
-    flag: '',
-    sametitle: false,  //check if the title entered has existed. 
-    newNote: [],
-    noteItem: ["Title: ", "Author: ", "Year of Publication: ", "Read? "],
-    notes: [], //this is to store all the notes added; 
-    searchVal: '',   // get the whatever the user enter in the search bar; 
-    searchRes: [],   // to store the result if the search matches; 
-    showSearch: '',     
-    isShow: false,     // controls the right panel to show or not; 
-    showAll: false,   // decides if all the notes stored in 'notes' to be shown or not. 
+      title: '',
+      author: '',
+      year: null,
+      read: false,   //check if the book is read; 
+      descriptions: '',
+      rating: null,
+      picUrl: null,
+      flag: '',
+      genre: [],
+      sametitle: false,  //check if the title entered has existed. 
+      newNote: [],
+      noteItem: ["Title: ", "Author: ", "Year of Publication: ", "Read? "],
+      notes: [], //this is to store all the notes added; 
+      genre: [],
+      isShow: false,     // controls the right panel to show or not; 
+      showAll: false,
     }
   },
-  
   methods: {
-    Readflag(){
-       if(this.read){
-        this.flag = 'YES';
-      } else{
-        this.flag = 'NO';
-      };
-      return this.flag;
-    },
+    addNote(title,author,descriptons,picUrl,rating,year,read,genre){
+        this.newNote = [title,author,descriptons,picUrl,rating,year,read,genre];
 
-
-    addNote(title, author, year){
-      title = title.toUpperCase();
-      this.newNote = [ title,author,year];
-      
-      let flag = this.Readflag();
-      this.newNote.push(flag); //check if book's read;   
-      
-      this.notes.forEach(item => {
+            this.notes.forEach(item => {
         if (item.includes(title)){
           this.sametitle = true;
           } 
       });
 
       if(this.sametitle == false && title !== " "){
-        this.notes.push(this.newNote);
+        axios.post("http://localhost:3000/notes", this.newNote )
+      .then((response => {
+        console.log(response);
+         }
+    ))
+    .catch(error => console.log(error) )
         
       } else if(this.sametitle == true) {
         console.log('Sorry, same title');
-        
       }
-      
-  },
+    },
+    handleSubmit(){
+        console.log('form submitted.')
+    },
 
-
-  deleteNote(note){
+    deleteNote(note){
       console.log(note);
-      this.notes = this.notes.filter((item) => note != item);
+      this.newNote = [];
       this.showSearch = '';
     },
-  
-  allNotes(){
-      this.isShow = !this.isShow;
-      this.showAll = true;
-      this.showSearch = '';
-      // console.log('yes, should pop out');
-  },
-
-  clearInputs(){
-    this.title = '',
-    this.author = '',
-    this.year = null,
-  
-    this.newNote = [];
-    this.sametitle = false;
-
-    this.searchVal = '';
-     this.showSearch = '';
-    this.isShow = false;
-    // console.log(this.searchVal.length)
-   
-  },
-  search(val){
-    var value; 
-    let tempt = false;  //becomes true if match found; 
-    
-    val = val.toUpperCase();
-     this.notes.forEach((item)=>{
-       value = item.find(ele => ele ===val );
-       if (value !== undefined ){ 
-         this.searchRes = item;  // pass the matched entry 
-         this.isShow = true;
-         this.showSearch = 'YES';
-         this.showAll = false;
-         tempt = true;
-         console.log('found? ', this.searchRes); 
-         };
-        
-    }); 
-     
-
-     console.log(this.searchRes)
-    if(tempt == false){ // nothing matched 
-      console.log('it works!')
-      this.isShow = false;
-      this.showSearch = 'NO';
-    }
-    // console.log(this.searchRes);    
-},
-  changeReadStatus(){
-    // change the 'read' status 
-    this.read = !this.read; 
-    this.Readflag(); // change the 'flag' variable in data(); 
-    // update the 'notes' array with 'flag' variable;
-    this.searchRes[this.searchRes.length-1] == this.flag;
-
-  },
-  handleSubmit(e){
-    console.log('form submitted!');
-  },
-},
-
-  computed:{
-    checkYear: function(){
-      var year = new Date().getFullYear(); //get the current year;
-      var result = true; 
-      
-      if((this.year > year || this.year < 1000) || (typeof(this.year) !== 'number')){
-        result = true;
-      } 
-    //   if (this.year === ''){
-    //     result = false;
-    //   } 
-    
-  return result;
-    },
-    checkTitle: function(){
-      return this.title.length > 0 && this.title.length<2 
-    },
-   
-    checkAuthor: function(){
-      return (this.author.length > 0 && this.author.length<2)
-    },
-    displayNewNote: function(){
-      var showNewNote = [];
-      for(var i=0; i< this.newNote.length; i++){
-        let display = this.noteItem[i] + this.newNote[i];
-        showNewNote.push(display);
-      }
-      return showNewNote;
-      // console.log(showNewNote);
-    },
-    
-    isDisable: function(){   //to able or disable the 'add new note' button; 
-      var result = false;
-      if(!(this.title && this.author && this.year)){
-        result = true;
-      } 
-      if(this.checkYear == true && this.checkTitle == true && this.checkAuthor == true){
-        result = true
-      }
-      return result
-    },
-
+  //   allNotes(){
+  //     this.isShow = !this.isShow;
+  //     this.showAll = true;
+  //     this.showSearch = '';
+  //     // console.log('yes, should pop out');
+  // },
   }, 
-  watch: {
       
-  },
 }
-
 </script>
 
 <style scoped>
@@ -271,23 +137,29 @@ export default {
   min-width: 100%;
   min-height: 90vh;
   /* border: solid; */
-  background-color: #3029291a;
+  /* background-color: #3029291a; */
   display:inline-block;
   align-items: center;
   }
 
 form {
     min-width: 20%;
-    margin: 8vh 5vh 5vh 30vh;
+    max-width: 50%;
+    margin: 8vh 5vh 5vh 15vh;
     background: white;
     text-align: left;
     display:inline-flex;
     padding: 40px;
-    /* border:solid; */
+    border:solid;
     border-radius: 10px;
   }
 
- 
+#genre {
+  margin-right:0;
+  margin: left 0px;;
+  font-size: 12px;
+}
+
   .leftbox {
   min-width: 45%;
   /* border: solid; */
@@ -332,8 +204,8 @@ form {
     color:cadetblue;
     margin-bottom: 10px;
   }
-label {
-    color: #aaa;
+label,legend {
+    color: rgb(145, 143, 143);
     display: inline-block;
     margin: 25px 0 15px;
     font-size: 1em;
@@ -341,6 +213,7 @@ label {
     letter-spacing: 1px;
     font-weight: bold;
   }
+
   input {
     display: block;
     padding: 10px 6px;
@@ -380,48 +253,9 @@ label {
     color: #555;
   }
 
-  .search {
-    margin: 30px auto;
-  }
-
-  #searchbutton {
-    margin-left:10px;
-    display: inline-block;
-    background-color:#3029299f;
-    color: white;
-    border-radius: 20px;
-    font-size: 17px;
-    }
-
-  #searchbutton:hover {
-    cursor: pointer;
-    background-color:#3f39394f;
-  }
-  .searchBox {
-    /* cursor: pointer; */
-    padding: 5px;  
-    margin-top:2px;
-     
-  }
-  .showItem {
-    color:darkred;
-    margin-left: 5px;
-    margin-top: 5px;
-    padding: 5px;
-    font-size: 15px;
-    
-  }
-
-  .markedRead {
-    border: solid;
-    background-color: white;
-    color: cadetblue;
-    font-family:'Times New Roman', Times, serif;
-  }
-  .markedRead:hover {
-    background-color:goldenrod;
-    color: white;
-  }
+.rating {
+  margin-left: 10px;
+}
 
 button {
     background: #504a4a4f;;

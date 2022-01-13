@@ -10,7 +10,7 @@
         </p> 
         </div>
 
-        <div class="card" style="width: 18rem;" v-for="info in book" :key="info.id" >
+        <div class="card" style="width: 18rem;" v-for="info in book.slice(0,4)" :key="info.id" >
         <img :src="info.picUrl" alt="#" class="card-img-top">
         <div class="card-body"  >
             <h5 class="card-title" id="card-title"> {{ info.title }} </h5>

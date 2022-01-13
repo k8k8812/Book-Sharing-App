@@ -10,7 +10,8 @@ const noteInfoSchema = new Schema({
     picUrl: String,
     rating: Number,
     year: Number,
-    isRead: Boolean
+    isRead: Boolean,
+    genre: Array,
 })
 
 const noteInfo = mongoose.model('notes', noteInfoSchema);
