@@ -9,7 +9,7 @@
         <div class="card-body"  >
             <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
             <p class="card-text" id="card-text"> {{ info.descriptions }}</p>
-            <router-link :to="{ name: 'NoteDetails', params: { id: info.id } }" class="btn btn-primary" > More </router-link>
+            <router-link :to="{ name: 'OneNote', params: { id: info.id } }" class="btn btn-primary" @click="getBook(info.id)"> More </router-link>
         </div> 
         </div>
     </div>
@@ -32,6 +32,11 @@ export default {
                 { title: 'The Door Between', id: 4,  descriptions: "teaching you how to use it", author: "Ellery Queen", picUrl: '../img/TheDoorBetween.jpg'},
                 
             ],
+        }
+    },
+    methods: {
+        getBook(book){
+            return (console.log('true, click: ', book))
         }
     },
 }

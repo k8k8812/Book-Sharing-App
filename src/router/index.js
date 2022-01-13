@@ -14,7 +14,8 @@ const routes = [
   {
     path: '/noteinfo',
     name: 'OneNote',
-    component: OneNote
+    component: OneNote, 
+    props: true,
   },
   {
     path: '/about',
