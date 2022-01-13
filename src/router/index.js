@@ -13,11 +13,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/noteinfo/:title',
+    path: '/onenote/:title',
     name: 'OneNote',
     component: OneNote, 
     props: true,
   },
+  
   {
     path: '/about',
     name: 'About',

@@ -3,13 +3,18 @@
 
     <section class="Top3books"> 
     <div class="show-cards"> 
-        <p style="color:grey">Our Popular Books: </p>  
-        
+        <div class="banner justify-content-lg-start" >
+        <p style="color:grey">Our Popular Books: 
+        <span class="genre" v-for="item in genre" :key="item.id"> 
+            <span>  {{ item }} |  </span> </span>
+        </p> 
+        </div>
+
         <div class="card" style="width: 18rem;" v-for="info in book" :key="info.id" >
         <img :src="info.picUrl" alt="#" class="card-img-top">
         <div class="card-body"  >
             <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
-            <p class="card-text" id="card-text"> {{ }}</p>
+            <p class="card-text" id="card-text"> {{ info.descriptions.slice(0,100) }} ... </p>
             <router-link :to="{ name: 'OneNote', params: { title: info.title } }" class="btn btn-primary" @click="getBook(info.title)"> More </router-link>
         </div> 
         </div>
@@ -25,7 +30,8 @@ export default {
     props: ['title'],
     data() {
         return {
-            book: null
+            book: null,
+            genre: ['thriller', 'horror', 'nonfiction', 'mystery', 'documentary']
         }
     },
     methods: {
