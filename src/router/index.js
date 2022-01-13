@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import OneNote from '../views/OneNote.vue'
+import addNewBook from '../components/addNewBook.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/noteinfo/:id',
+    path: '/noteinfo/:title',
     name: 'OneNote',
     component: OneNote, 
     props: true,
@@ -25,6 +26,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }, 
+  {
+    path:'/addnewbook', 
+    name: 'addNewBook',
+    component: addNewBook
+  }
   
 ]
 

@@ -1,15 +1,16 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+
     <section class="Top3books"> 
     <div class="show-cards"> 
         <p style="color:grey">Our Popular Books: </p>  
-        <div class="card" style="width: 18rem;" v-for="info in books.slice(0,3)" :key="info.id" >
+        
+        <div class="card" style="width: 18rem;" v-for="info in book" :key="info.id" >
         <img :src="info.picUrl" alt="#" class="card-img-top">
         <div class="card-body"  >
             <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
-            <p class="card-text" id="card-text"> {{ info.descriptions }}</p>
-            <router-link :to="{ name: 'OneNote', params: { id: info.id } }" class="btn btn-primary" @click="getBook(info.id)"> More </router-link>
+            <p class="card-text" id="card-text"> {{ }}</p>
+            <router-link :to="{ name: 'OneNote', params: { title: info.title } }" class="btn btn-primary" @click="getBook(info.title)"> More </router-link>
         </div> 
         </div>
     </div>
@@ -18,20 +19,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  // name: 'HelloWorld',
-  props: {
-    msg: String
-  },
+    props: ['title'],
     data() {
         return {
-            books: [
-                { title: 'Finding Nemo', id: 1,  descriptions: "Lorem", author: "Unknow", picUrl: "../img/findingNemo.jpg" },
-                { title: 'There will be none', id: 2,  descriptions: "Lorem lorem lorem", author: "Christie Agatha", picUrl: '../img/AndThenThereWereNone.jpg'},
-                { title: 'Bad Blood', id: 3,  descriptions: "LoremvLoremLoremLoremLorem",author: "John Doe", picUrl: '../img/badBlood.jpg'},
-                { title: 'The Door Between', id: 4,  descriptions: "teaching you how to use it", author: "Ellery Queen", picUrl: '../img/TheDoorBetween.jpg'},
-                
-            ],
+            book: null
         }
     },
     methods: {
@@ -39,6 +33,15 @@ export default {
             return (console.log('true, click: ', book))
         }
     },
+    mounted() {
+        const baseURL = "http://localhost:3000/notes";
+       
+        axios(baseURL).then(response => {
+            this.book = response.data
+            // this.book = Object.values(this.book).filter(item => item.title == this.title)
+           console.log('The book should be printed out now !', this.book);
+       }).catch(error => console.log(error))
+    }
 }
 </script>
 
@@ -47,20 +50,21 @@ export default {
 .show-cards {
         margin: 1vw 10vw 10vw 10vw; 
         padding: 20px;
+        /* border: solid; */
     }
-
     .card {
         display: inline-block;
-       
         background:#cfd1da74;
         margin: 1.5vw;
-        height: 65vh;
+        height: auto;
+        /* border: solid; */
         
     }
 
     .card-img-top {
         width: 100%;
-        height: 70%;
-        
+        height: 390px;
+        object-fit: fill;
     }
+
 </style>
