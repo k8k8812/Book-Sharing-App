@@ -19,48 +19,48 @@
                     <li><label> Here's the author:  </label><input class="form-control" type="text" placeholder="Author" aria-label="default input example" v-model="book.author"> </li>
                     <li> <label> Year of Publication:  </label> <input class="form-control" type="number" placeholder="Year of Publication" aria-label="default input example"  v-model="book.year"></li>        
                     <li id="genre"> <label> Genre:  </label> 
-                    <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Fiction" id="flexCheckDefault" v-model="genre">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Fiction" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault" >
                             Fiction 
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Thriller" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Thriller" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Thriller 
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Documentary" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Documentary" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Documentary 
                         </label> 
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Crime" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Crime" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Crime
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Fantacy" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Fantacy" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Fantacy
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Sci-Fi" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Sci-Fi" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Sci-Fi
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Comic" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Comic" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Comic 
                         </label>  
-                    </div>       -->
+                    </div>      
                     <!-- </li> {{ title }} {{ author }} {{ year }} {{ genre }} {{ rating }} {{ read }} -->
                     <li> <div class="col-md-3">
                             <label for="validationCustom04" class="form-label">Rating </label>
@@ -89,6 +89,12 @@
                            <div class="input-group">
                             <textarea class="form-control" aria-label="With textarea" v-model="book.descriptions"></textarea></div>
                     </li> 
+                    <li><label> Upload an Image </label> </li>
+                        <li><div class="image">
+                            <input type="file" name="book-img" >
+                            <button type="button" class="btn btn-secondary btn-dark"
+                            value="send" > Upload </button>
+                            </div></li>
                     </ul>
                 </div>
                 
@@ -158,9 +164,7 @@ export default {
                 alert('Nothing has been added to our database.');
             }
         },
-        // go(){
-        //     this.$router.go(-1);
-        // }
+        
     },
 }   
 

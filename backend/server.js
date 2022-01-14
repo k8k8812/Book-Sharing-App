@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path')
 
 
+
 const app = express();
 mongoose.connect('mongodb://localhost:27017/notes-app', {
     useUnifiedTopology : true,
@@ -26,6 +27,13 @@ console.log(__dirname);
 
 app.use(bodyParser.json()); 
 app.use(cors());
+
+
+
+
+function apiResponse(results){
+  return JSON.stringify({"status": 200, "error": null, "response": results});
+}
 
 app.use(function (req, res, next) {
     //Set the “Access-Control-Allow-Origin” for the Website you wish to allow to connect

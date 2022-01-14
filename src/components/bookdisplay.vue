@@ -10,7 +10,7 @@
         </p> 
         </div>
 
-        <div class="card" style="width: 18rem;" v-for="info in book" :key="info.id" >
+        <div class="card" style="width: 18rem; height: auto" v-for="info in book" :key="info.id" >
         <img :src="info.picUrl" alt="#" class="card-img-top">
         <div class="card-body"  >
             <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
@@ -73,7 +73,7 @@ export default {
 
     .card-img-top {
         width: 100%;
-        height: 390px;
+        max-height: 390px;
         object-fit: fill;
     }
 

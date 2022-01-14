@@ -16,48 +16,48 @@
                     <li><label> Here's the author:  </label><input class="form-control" type="text" placeholder="Author" aria-label="default input example" v-model.trim.lazy="book[0].author" ></li>
                     <li> <label> Year of Publication:  </label> <input class="form-control" type="number" placeholder="Year of Publication" aria-label="default input example" v-model="book[0].year"></li>        
                     <li id="genre"> <label> Genre:  </label> 
-                    <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Fiction" id="flexCheckDefault" v-model="genre">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Fiction" id="flexCheckDefault" v-model="book[0].genre">
                         <label class="form-check-label" for="flexCheckDefault" >
                             Fiction 
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Thriller" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Thriller" id="flexCheckDefault" v-model="book[0].genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Thriller 
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Documentary" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Documentary" id="flexCheckDefault" v-model="book[0].genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Documentary 
                         </label> 
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Crime" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Crime" id="flexCheckDefault" v-model="book[0].genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Crime
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Fantacy" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Fantacy" id="flexCheckDefault" v-model="book[0].genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Fantacy
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Sci-Fi" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Sci-Fi" id="flexCheckDefault" v-model="book[0].genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Sci-Fi
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Comic" id="flexCheckDefault" v-model="genre">
+                        <input class="form-check-input" type="checkbox" value="Comic" id="flexCheckDefault" v-model="book[0].genre">
                         <label class="form-check-label" for="flexCheckDefault">
                             Comic 
                         </label>  
-                    </div>       -->
+                    </div>      
                     <!-- </li> {{ title }} {{ author }} {{ year }} {{ genre }} {{ rating }} {{ read }} -->
                     <li> <div class="col-md-3">
                             <label for="validationCustom04" class="form-label">Rating </label>
