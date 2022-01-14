@@ -10,12 +10,13 @@
         </p> 
         </div>
 
-        <div class="card" style="width: 18rem;" v-for="info in book.slice(0,4)" :key="info.id" >
+        <div class="card" style="width: 18rem;" v-for="info in book" :key="info.id" >
         <img :src="info.picUrl" alt="#" class="card-img-top">
         <div class="card-body"  >
             <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
             <p class="card-text" id="card-text"> {{ info.descriptions.slice(0,100) }} ... </p>
             <router-link :to="{ name: 'OneNote', params: { title: info.title } }" class="btn btn-primary" @click="getBook(info.title)"> More </router-link>
+            
         </div> 
         </div>
     </div>
@@ -37,7 +38,8 @@ export default {
     methods: {
         getBook(book){
             return (console.log('true, click: ', book))
-        }
+        },
+       
     },
     mounted() {
         const baseURL = "http://localhost:3000/notes";

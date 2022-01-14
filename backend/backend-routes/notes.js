@@ -19,13 +19,11 @@ router.get('/', (req,res)=>{
 })
 
 router.post('/', urlencodeParser, (req,res)=>{
-    
-    
         const note = new NotesDB({
             title: req.body[0],
             author: req.body[1],
             descriptons: req.body[2],
-            picUrl: req.body[3],
+            picUrl:req.body[3],
             rating: req.body[4],
             year: req.body[5],
             isRead: req.body[6],
@@ -37,5 +35,18 @@ router.post('/', urlencodeParser, (req,res)=>{
     //         res.status(200).end();
     // });
 })
+router.delete('/:id', (req, res)=>{
+    
+    // console.log(req.params.id);
+    const title = req.params.id;
+    NotesDB.findByIdAndRemove(title,(error)=> {
+        if(error) {
+            console.log("error in Pages ", error);
+        }
+        res.status(204).end();
+        console.log('delete note mongodb_id: ', title );
+    }); 
+})
+
 
 module.exports = router; 

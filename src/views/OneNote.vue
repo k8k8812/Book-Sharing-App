@@ -26,16 +26,19 @@
                 </div>
                 <div class="book-ratings">
                 </div>
+                <div class="operation-container">
 
+                    <div class="add-new-book">
+                    <router-link to="/addnewbook"> <button type="button" class="btn btn-outline-primary " > Add One New Book </button> </router-link> 
+                    </div>
+
+                    <div class="delete-this-book">
+                    <button @click="deleteBook(info)"> Delete Note </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="operations-container row">
-            <div class="add-new-book">
-                 <router-link to="/addnewbook"> <button type="button" class="btn btn-outline-primary " > Add One New Book </button> </router-link> 
-
-            </div>
-        </div>
 
     </div>
 
@@ -55,6 +58,19 @@ export default {
             book: null, 
         }
    },
+   methods: {
+        deleteBook(book){
+        //    console.log(this.$route.params.title);
+        //    console.log('hahah', book._id)
+        
+           axios.delete("http://localhost:3000/notes/" + book._id)
+           .then(res => {  
+            console.log(res);  
+            console.log(res.data)
+        })
+        .catch(error=> console.log('Ooops: ', error))
+     },
+   },
    computed: {
     },
    mounted() {
@@ -67,7 +83,6 @@ export default {
 
            console.log('The book should be printed out now !', this.book);
        }).catch(error => console.log(error))
-
    }
 }
 </script>
