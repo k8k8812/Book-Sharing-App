@@ -36,10 +36,10 @@ router.post('/', urlencodeParser, (req,res)=>{
             genre: req.body.genre,
         })
         console.log('new note, ', note)
-    note.save((error) => {
-        if(error){console.log('error in new note: ', error)}
-            res.status(200).end();
-    });
+    // note.save((error) => {
+    //     if(error){console.log('error in new note: ', error)}
+    //         res.status(200).end();
+    // });
 })
 router.delete('/:id', (req, res)=>{
     

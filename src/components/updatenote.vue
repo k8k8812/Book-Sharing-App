@@ -14,7 +14,7 @@
                     <input type="text" class="form-control"  aria-label="Book Title" aria-describedby="addon-wrapping" v-model.lazy.trim="book[0].title"  > 
                     </div>
                     <li><label> Here's the author:  </label><input class="form-control" type="text" placeholder="Author" aria-label="default input example" v-model.trim.lazy="book[0].author" ></li>
-                    <li> <label> Year of Publication:  </label> <input class="form-control" type="number" placeholder="Year of Publication" aria-label="default input example" v-model="book[0].year"></li>        
+                    <li> <label> Year of Publication:  </label> <input class="form-control" type="number" placeholder="Year of Publication" aria-label="default input example" v-model.number="book[0].year"></li>        
                     <li id="genre"> <label> Genre:  </label> 
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="Fiction" id="flexCheckDefault" v-model="book[0].genre">
@@ -147,10 +147,12 @@ export default {
 
         updateNote(){
             var update_note = this.book[0];
+            const baseURL = "http://localhost:3000/notes/";
 
             console.warn('the updated: ', update_note)
+
             
-            axios.put("http://localhost:3000/notes/" + this.$route.params.id, update_note).then((response) => {
+            axios.put(baseURL + this.$route.params.id, update_note).then((response) => {
             console.log(response.data);
             })
         },

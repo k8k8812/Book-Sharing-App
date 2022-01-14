@@ -1,23 +1,19 @@
 <template>
     <div> 
         <div id="success"> </div>
-         <!-- <div id="success" class="alert alert-success" role="alert">
-                A simple success alert—check it out!
-            </div> -->
+         
       
         <div class="info-container-rightbox col-md-8">
           
-         
-
             <div class="rightbox-noteinfo" >
                 <div class="book-info-list"  >
                     <ul> 
                     <label> Book Title: </label>
                     <div class="input-group flex-nowrap">
-                    <input type="text" class="form-control" placeholder="Book Title" aria-label="Book Title" aria-describedby="addon-wrapping" v-model="book.title">
+                    <input type="text" class="form-control" placeholder="Book Title" aria-label="Book Title" aria-describedby="addon-wrapping" v-model.lazy.trim="book.title">
                     </div>
-                    <li><label> Here's the author:  </label><input class="form-control" type="text" placeholder="Author" aria-label="default input example" v-model="book.author"> </li>
-                    <li> <label> Year of Publication:  </label> <input class="form-control" type="number" placeholder="Year of Publication" aria-label="default input example"  v-model="book.year"></li>        
+                    <li><label> Here's the author:  </label><input class="form-control" type="text" placeholder="Author" aria-label="default input example" v-model.lazy.trim="book.author"> </li>
+                    <li> <label> Year of Publication:  </label> <input class="form-control" type="number" placeholder="Year of Publication" aria-label="default input example"  v-model.number="book.year"></li>        
                     <li id="genre"> <label> Genre:  </label> 
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="Fiction" id="flexCheckDefault" v-model="book.genre">
@@ -99,7 +95,7 @@
                 </div>
                 
                 <div class="operation-container ">
-                    <button type="button" class="btn btn-primary" @click="add()" > Add One New Book </button> 
+                    <button type="button" class="btn btn-primary" @click="add" :disabled="isDisable"> Add One New Book </button> 
                     <router-link to="/"><button type="button" class="btn btn-secondary" > Go Back to Previous Page </button> </router-link>
                     <!-- <button type="button" class="btn btn-danger "  @click="confirmDelete(info)" > Delete Book </button>  -->
                 </div> 
@@ -127,22 +123,51 @@ export default {
                 genre: [],
                 
             },
-            new_note: [],
+            all_notes: null,
         }
     },
 
     methods: {
-        addnote(){
-            var new_note = this.book;
+        check_title(){
+            
+            let book_title = this.book.title.toUpperCase();
+            let same_title = false;
 
-             axios.post("http://localhost:3000/notes", new_note )
-            .then((response) => {
-            console.log(response.data);
+            this.all_notes.forEach(element => {
+                if(element.title.includes(book_title)){
+                    same_title = true;
+                    
+                }
+            });
+            if (same_title == true){
+                console.log('Sorry Same Title');
+                alert("Same Title Book Can't Be Added. ")
+                return false
+            }
+            console.warn("is it the same title: ", same_title)
+        },
+
+        addnote(){
+            const baseURL = "http://localhost:3000/notes/";
+            this.book.title = this.book.title.toUpperCase()
+            console.warn(this.check_title())
+
+            if(this.check_title() != false){
+                var new_note = this.book;
+                 axios.post(baseURL, new_note )
+                .then((response) => {
+                console.log(response.data);
+
             })
+            } else {
+                console.warn('failed to add new book, error: same title. ')
+            }
+            
+            
     },
         alertSuccess(){
             var alert_position = document.getElementById('success')
-            var message = "New Book Added Successfully!"
+            var message = `New Book ${this.book.title} Added Successfully!`
 
             var wrapper = document.createElement('div');
             wrapper.innerHTML = '<div id="success" class="alert alert-success" role="alert">' + message 
@@ -154,6 +179,7 @@ export default {
                 alert_position.append(wrapper)
             }, 2000)
         },
+
         add(){
             if(confirm('Are You Sure to Add this Book to Our Database? ')){
                 this.addnote();
@@ -166,6 +192,42 @@ export default {
         },
         
     },
+    mounted() {
+        const baseURL = "http://localhost:3000/notes/";
+       
+        axios(baseURL).then(response => {
+            this.all_notes = response.data
+            // this.book = Object.values(this.book).filter(item => item.title == this.title)
+           console.log('The book should be printed out now !', this.all_notes);
+       }).catch(error => console.log(error))
+    },
+    computed: {
+        check_year: function(){
+            var result = true;
+            
+            if(this.book.year < 1000 || this.book.year > 2023){
+                result = false; 
+            } 
+            return result;
+        }, 
+        check_author: function(){
+            var res = true; 
+
+            if(!this.book.author && this.book.author.length < 2){
+                res = false; 
+            }
+            return res;
+        },
+        isDisable: function(){
+            var disable_add = true;
+
+            if(this.check_author && this.check_year){
+                disable_add = false;
+            }
+            return disable_add; 
+        }
+    }
+
 }   
 
 </script>

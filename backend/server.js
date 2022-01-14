@@ -3,11 +3,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require('mongoose');
 const path = require('path')
+const database_link = require('../src/config/db')
 
 
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/notes-app', {
+mongoose.connect(database_link.database, {
     useUnifiedTopology : true,
     useNewUrlParser: true
 });
