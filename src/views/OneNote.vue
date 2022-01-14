@@ -21,12 +21,12 @@
                     <li> <label> Year of Publication:  </label> {{ info.year }}</li>        
                     <li > <label> Genre:  </label> <span class="genre-capitalized" v-for="i in info.genre" :key="i.id"> {{ i }}, </span>       
                     </li>
-                    <li> <label> Rating: </label> {{ info.rating}}</li>
+                    <li> <label> Rating: </label> {{ info.rating }}</li>
                     <li> <label> Read: </label>
-                        <span v-if="!info.isRead" ></span>
+                        <span v-if="!info.isRead" >{{ info.isRead }} </span>
                         <span v-else-if="info.isRead"> {{ info.isRead }}  </span>
                     </li>
-                    <li> <label> Description:  </label>{{ info.descriptions }}</li> 
+                    <li> <label> Description:  </label> {{ info.descriptions }} </li> 
                     </ul>
                 </div>
                 <div class="book-ratings">

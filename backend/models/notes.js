@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const noteInfoSchema = new Schema({
     title: String,  
     author: String,
-    descriptons: String,
+    descriptions: String,
     picUrl: String,
     rating: Number,
     year: Number,

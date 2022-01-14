@@ -23,12 +23,12 @@ router.post('/', urlencodeParser, (req,res)=>{
 
     console.log(req.body);
     // console.log(req.body.title);
-    // console.log(req.body.descriptons);
+    // console.log(req.body.descriptions);
 
         const note = new NotesDB({
             title: req.body.title,
             author: req.body.author,
-            descriptons: req.body.descriptons,
+            descriptions: req.body.descriptions,
             picUrl:req.body.picUrl,
             rating: req.body.rating,
             year: req.body.year,
@@ -56,42 +56,20 @@ router.delete('/:id', (req, res)=>{
 
 router.put('/:id', (req, res)=> {
         const data = req.body; 
-        let title = data.title; 
-        let author = data.author;
-        let descriptions = data.descriptons;
-        let picUrl = data.picUrl;
-        let rating = data.rating;
-        let year = data.year;
-        let isRead = data.read; 
-        let genre = data.genre;
+       
 
         const id = req.params.id;
         console.log("what's the id??", id);
 
 
-        let okk = NotesDB.findById(id, (error)=> {
+        NotesDB.findByIdAndUpdate(id, data,(error, docs)=> {
             if(error){
                 console.log('Error in Page ', error)
             }
-        
-        const note = new NotesDB({
-            title: title, 
-            author: author,
-            descriptions: descriptions,
-            picUrl: picUrl,
-            rating: rating,
-            year: year,
-            isRead: isRead,
-            genre: genre
-
+            else {
+                console.log('updated, ', data)
+            }
         })
-            note.save((error) => {
-                if(error) console.log("Error in Pages" + error)
-                   res.status(201).end();  
-            });
-
-        })
-        // console.log("if thre's a result", okk);
         
 
 })

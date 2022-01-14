@@ -79,7 +79,7 @@
                     </li>
                     <li> <label> Read: </label> 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" v-model="book.read">
+                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" v-model="book.isRead">
                         <label class="form-check-label" for="flexCheckDefault">
                             Yes  
                         </label>
@@ -94,6 +94,7 @@
                 
                 <div class="operation-container ">
                     <button type="button" class="btn btn-primary" @click="add()" > Add One New Book </button> 
+                    <router-link to="/"><button type="button" class="btn btn-secondary" > Go Back to Previous Page </button> </router-link>
                     <!-- <button type="button" class="btn btn-danger "  @click="confirmDelete(info)" > Delete Book </button>  -->
                 </div> 
                     
@@ -112,7 +113,7 @@ export default {
             book: {
                 title: '',
                 author: '',
-                descriptons: '',
+                descriptions: '',
                 picUrl:'',
                 rating: null,
                 year: null,
@@ -156,7 +157,10 @@ export default {
             } else {
                 alert('Nothing has been added to our database.');
             }
-        }
+        },
+        // go(){
+        //     this.$router.go(-1);
+        // }
     },
 }   
 

@@ -10,7 +10,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li ><router-link to="/" id="links"> Home  </router-link></li>
               <li ><router-link to="/about" id="links"> About </router-link></li>
-              <li ><router-link to="/noteinfo" aria-current="page" class="router-link-exact-active router-link-active" id="links"> One Note Page  </router-link></li>
+              <li ><router-link to="/addbook" aria-current="page" class="router-link-exact-active router-link-active" id="links"> Add New Page  </router-link></li>
               <li> </li>
           </ul>
         </div>

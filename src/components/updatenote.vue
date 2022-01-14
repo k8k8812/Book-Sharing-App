@@ -11,9 +11,9 @@
                     <ul> 
                     <label> Book Title:   </label>
                     <div class="input-group flex-nowrap">
-                    <input type="text" class="form-control"  aria-label="Book Title" aria-describedby="addon-wrapping" v-model="book[0].title"  > 
+                    <input type="text" class="form-control"  aria-label="Book Title" aria-describedby="addon-wrapping" v-model.lazy.trim="book[0].title"  > 
                     </div>
-                    <li><label> Here's the author:  </label><input class="form-control" type="text" placeholder="Author" aria-label="default input example" v-model="book[0].author" ></li>
+                    <li><label> Here's the author:  </label><input class="form-control" type="text" placeholder="Author" aria-label="default input example" v-model.trim.lazy="book[0].author" ></li>
                     <li> <label> Year of Publication:  </label> <input class="form-control" type="number" placeholder="Year of Publication" aria-label="default input example" v-model="book[0].year"></li>        
                     <li id="genre"> <label> Genre:  </label> 
                     <!-- <div class="form-check">
@@ -61,7 +61,7 @@
                     <!-- </li> {{ title }} {{ author }} {{ year }} {{ genre }} {{ rating }} {{ read }} -->
                     <li> <div class="col-md-3">
                             <label for="validationCustom04" class="form-label">Rating </label>
-                            <select class="form-select" id="validationCustom04" required  v-model="book[0].rating" >
+                            <select class="form-select" id="validationCustom04" required  v-model.lazy="book[0].rating" >
                             <option selected disabled value="">Choose...</option>
                                 <option>5</option>
                                 <option>4</option>
@@ -76,7 +76,7 @@
                     </li>
                     <li> <label> Read: </label> 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" v-model="book[0].read">
+                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" v-model.lazy="book[0].isRead">
                         <label class="form-check-label" for="flexCheckDefault">
                             Yes  
                         </label>
@@ -84,13 +84,14 @@
                     </li>
                     <li> <label>  Description: </label>
                            <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" v-model="book[0].descriptions" ></textarea></div>
+                            <textarea class="form-control" aria-label="With textarea" v-model.lazy="book[0].descriptions" ></textarea></div>
                     </li> 
                     </ul>
                 </div>
                 
                 <div class="operation-container ">
                     <button type="button" class="btn btn-primary" @click="update" > Update Book </button> 
+                    <button type="button" class="btn btn-secondary" @click="go" > Go Back to Previous Page </button> 
                     <!-- <button type="button" class="btn btn-danger "  @click="confirmDelete(info)" > Delete Book </button>  -->
                 </div> 
                     
@@ -114,7 +115,7 @@ export default {
             book: {
                 title: '',
                 author: '',
-                descriptons: '',
+                descriptions: '',
                 picUrl:'',
                 rating: null,
                 year: null,
@@ -148,6 +149,8 @@ export default {
 
         updateNote(){
             var update_note = this.book[0];
+
+            console.warn('the updated: ', update_note)
             
             axios.put("http://localhost:3000/notes/" + this.$route.params.id, update_note).then((response) => {
             console.log(response.data);
@@ -160,13 +163,17 @@ export default {
                 this.updateNote();
                 this.alertSuccess();
                 console.log('Book Updated');
+                this.$router.go(-1);
             } else {
                 alert('Nothing has been added to our database.');
             }
+        },
+        go(){
+            this.$router.go(-1);
         }
         
     },
-
+   
    async mounted(){
        
         console.warn(this.$route.params.id);
@@ -174,7 +181,6 @@ export default {
         axios(baseURL).then(response => {
             this.result = response.data
         
-            // console.log(this.result)
             this.result = Object.values(this.result).filter(item => item._id == this.$route.params.id)
             // console.log('filtered result: ', this.result)
             var res =JSON.stringify(this.result)
@@ -182,7 +188,7 @@ export default {
             
             this.book = JSON.parse(res)
 
-            console.log(this.result);
+            console.log(this.book);
         //    console.log('The book should be printed out now !', this.book);
 
        }).catch(error => console.log(error))
