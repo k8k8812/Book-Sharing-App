@@ -4,9 +4,10 @@
     <section class="Topbooks"> 
     <div class="show-cards"> 
         <div class="banner justify-content-lg-start" >
-        <p style="color:grey">Our Popular Books: 
-        <span class="genre" v-for="item in genre" :key="item.id"> 
-            <span>  {{ item }} |  </span> </span>
+        <p class='text' style="color:grey">Our Popular Books: 
+            <!-- <searchbygenre /> -->
+        <span class="genre" v-for="item in genre_name" :key="item.id"> 
+            <router-link style="text-decoration:none;" :to="{ name: 'searchbygenre', params: { genre: item }}"> <span id="genre-link">  {{ item }}  | </span> </router-link> </span>
         </p> 
         </div>
 
@@ -25,13 +26,17 @@
 
 <script>
 import axios from 'axios'
+import searchbygenre from '@/components/searchbygenre.vue'
 
 export default {
     props: ['title'],
+    components: {
+        searchbygenre
+    },
     data() {
         return {
             book: null,
-            genre: ['thriller', 'horror', 'nonfiction', 'mystery', 'documentary']
+            genre_name: ['Fiction','Thriller','Documentary', 'Crime','Fantasy','Sci-Fi','Comic', 'Whodunit'],
         }
     },
     methods: {
@@ -54,6 +59,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+#genre-link {
+    font-style: italic;
+    color: #aaa;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-right: 2px;
+    padding: 3px;
+}
 .show-cards {
         margin: 1vw auto 10vw; 
         padding: 20px;
@@ -75,6 +88,12 @@ export default {
         width: 100%;
         max-height: 390px;
         object-fit: fill;
+    }
+
+    .genre {
+        text-decoration: none;
+        font-style: bold;
+        font-size: 15px; 
     }
 
 </style>

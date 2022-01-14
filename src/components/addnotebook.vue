@@ -44,9 +44,9 @@
                         </label>  
                     </div>      
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Fantacy" id="flexCheckDefault" v-model="book.genre">
+                        <input class="form-check-input" type="checkbox" value="Fantasy" id="flexCheckDefault" v-model="book.genre">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Fantacy
+                            Fantasy
                         </label>  
                     </div>      
                     <div class="form-check">

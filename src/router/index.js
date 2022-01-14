@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import OneNote from '../views/OneNote.vue'
 import addnotebook from '../components/addnotebook.vue'
 import updatenote from '../components/updatenote.vue'
+import searchbygenre from '../components/searchbygenre.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,12 @@ const routes = [
     path: '/updatebook/:id',
     name: 'updatenote',
     component: updatenote 
+  }, 
+  {
+    path: '/genre/:genre',
+    name: 'searchbygenre',
+    component: searchbygenre,
+    props: true
   }
   
 ]
