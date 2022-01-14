@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import OneNote from '../views/OneNote.vue'
-import addNewBook from '../components/addNewBook.vue'
+import addnotebook from '../components/addnotebook.vue'
+import updatenote from '../components/updatenote.vue'
 
 Vue.use(VueRouter)
 
@@ -28,9 +29,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }, 
   {
-    path:'/addnewbook', 
-    name: 'addNewBook',
-    component: addNewBook
+    path:'/addbook', 
+    name: 'addnotebook',
+    component: addnotebook
+  }, 
+  {
+    path: '/updatebook/:id',
+    name: 'updatenote',
+    component: updatenote 
   }
   
 ]

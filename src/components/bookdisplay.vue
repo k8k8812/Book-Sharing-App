@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
 
-    <section class="Top3books"> 
+    <section class="Topbooks"> 
     <div class="show-cards"> 
         <div class="banner justify-content-lg-start" >
         <p style="color:grey">Our Popular Books: 
@@ -14,9 +14,8 @@
         <img :src="info.picUrl" alt="#" class="card-img-top">
         <div class="card-body"  >
             <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
-            <p class="card-text" id="card-text"> {{ info.descriptions.slice(0,100) }} ... </p>
+            <p class="card-text" id="card-text" v-if="info.descriptions"> {{ info.descriptions.slice(0,100) }} ... </p>
             <router-link :to="{ name: 'OneNote', params: { title: info.title } }" class="btn btn-primary" @click="getBook(info.title)"> More </router-link>
-            
         </div> 
         </div>
     </div>
@@ -56,8 +55,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .show-cards {
-        margin: 1vw 10vw 10vw 10vw; 
+        margin: 1vw auto 10vw; 
         padding: 20px;
+        max-width: 80%;
+        min-height: 70%;
+
         /* border: solid; */
     }
     .card {
