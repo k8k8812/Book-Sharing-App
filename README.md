@@ -5,7 +5,7 @@ As the app grows, it will add more features like comments, discussion column for
 
 
 
-# new-notes-app
+# book-sharing-app
 
 ## Project setup
 ```
