@@ -13,6 +13,8 @@
                 </ol>
             </nav>
         </div>
+
+        
         <div class="row">
         <div class="col-sm-1">
         </div>
@@ -45,6 +47,7 @@
 <script>
 import axios from 'axios'
 
+
 export default {
     props: ['genre'],
     data(){
@@ -57,6 +60,7 @@ export default {
 
     mounted() {
         const baseURL = "http://localhost:3000/notes";
+
 
         axios(baseURL).then(response => {
             this.book = response.data 

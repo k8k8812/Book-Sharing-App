@@ -1,8 +1,6 @@
 <template>
     <div> 
-        <div id="success"> </div>
-         
-      
+        <div id="success"> </div> 
         <div class="info-container-rightbox col-md-8">
           
             <div class="rightbox-noteinfo" >

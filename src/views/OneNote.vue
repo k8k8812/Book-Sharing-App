@@ -1,14 +1,21 @@
 <template>
     <div class="info-container row ">
-        <!-- <div class="info-container-leftbox col-6 col-md-2 row-cols-auto" >
-            <div class="leftbox-img" v-for="info in book" :key="info.id">
-                <img :src="info.picUrl"  alt="bookimge" > 
 
+        <div class="row">
+            <div class="col-sm-3"> 
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    
+                    <ol class="breadcrumb justify-content-xl-start"> 
+                        <li class="breadcrumb-item"><router-link to="/"> <span class="breadcrumb-link"> All Genres </span> </router-link></li>
+                        <li class="breadcrumb-item active" aria-current="page"> <span class="breadc-span">{{ this.title }} </span> </li>
+                    </ol>
+                </nav>
             </div>
-        </div> -->
+        </div>
+        
             <div class="info-container-leftbox col-6 col-md-2 row-cols-auto" >
             <div class="leftbox-img" v-for="info in one_book" :key="info.id">
-                <img :src="info.picUrl"  alt="bookimge" > 
+                <img :src="info.picUrl"  alt="book-imge" > 
 
             </div>
         </div>
@@ -45,9 +52,7 @@
                     <div class="delete-this-book">
                     <button type="button" class="btn btn-danger " @click="confirmDelete(info)"> Delete Book </button>
                     </div>
-                    
-
-                </div>
+             </div>
             </div>
         </div>
 

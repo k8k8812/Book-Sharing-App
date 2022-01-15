@@ -2,11 +2,9 @@
 
 <div> 
         <div id="success" >  </div>
-         
         <div class="info-container-rightbox col-md-8" >
-          
-
-            <div class="rightbox-noteinfo"  >
+        <div class="rightbox-noteinfo"  >
+            
                 <div class="book-info-list"  > 
                     <ul> 
                     <label> Book Title:   </label>

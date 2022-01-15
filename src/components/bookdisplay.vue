@@ -2,24 +2,24 @@
   <div class="hello">
 
     <section class="Topbooks"> 
-    <div class="show-cards"> 
-        <div class="banner justify-content-lg-start" >
-        <p class='text' style="color:grey">Our Popular Books: 
-            <!-- <searchbygenre /> -->
-        <span class="genre" v-for="item in genre_name" :key="item.id"> 
-            <router-link style="text-decoration:none;" :to="{ name: 'searchbygenre', params: { genre: item }}"> <span id="genre-link">  {{ item }}  | </span> </router-link> </span>
-        </p> 
-        </div>
+        <div class="show-cards"> 
+            <div class="banner justify-content-lg-start" >
+            <p class='text' style="color:grey">Our Popular Books: 
+                <!-- <searchbygenre /> -->
+            <span class="genre" v-for="item in genre_name" :key="item.id"> 
+                <router-link style="text-decoration:none;" :to="{ name: 'searchbygenre', params: { genre: item }}"> <span id="genre-link">  {{ item }}  | </span> </router-link> </span>
+            </p> 
+            </div>
 
-        <div class="card" style="width: 18rem; height: auto" v-for="info in book" :key="info.id" >
-        <img :src="info.picUrl" alt="#" class="card-img-top">
-        <div class="card-body"  >
-            <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
-            <p class="card-text" id="card-text" v-if="info.descriptions"> {{ info.descriptions.slice(0,100) }} ... </p>
-            <router-link :to="{ name: 'OneNote', params: { title: info.title } }" class="btn btn-primary" @click="getBook(info.title)"> More </router-link>
-        </div> 
+            <div class="card" style="width: 18rem; height: auto" v-for="info in book" :key="info.id" >
+            <img :src="info.picUrl" alt="#" class="card-img-top">
+            <div class="card-body"  >
+                <h5 class="card-title" id="card-title"> {{ info.title }} </h5>
+                <p class="card-text" id="card-text" v-if="info.descriptions"> {{ info.descriptions.slice(0,100) }} ... </p>
+                <router-link :to="{ name: 'OneNote', params: { title: info.title } }" class="btn btn-primary" @click="getBook(info.title)"> More </router-link>
+            </div> 
+            </div>
         </div>
-    </div>
  </section>
   </div>
 </template>
@@ -57,7 +57,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 #genre-link {
@@ -73,7 +72,7 @@ export default {
         max-width: 80%;
         min-height: 70%;
 
-        /* border: solid; */
+       
     }
     .card {
         display: inline-block;
